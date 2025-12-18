@@ -60,7 +60,7 @@
         window.selectProfessional = (id) => {
             window.selectedProf = professionals.find(p => p.id === id);
             document.querySelectorAll('.prof-card').forEach(el => el.classList.remove('ring-4', 'ring-teal-500', 'bg-teal-50'));
-            document.getElementById(`card-${id}`).classList.add('ring-4', 'ring-teal-500', 'bg-teal-50');
+            document.getElementById(card-${id}).classList.add('ring-4', 'ring-teal-500', 'bg-teal-50');
             document.getElementById('step-2').classList.remove('hidden');
             document.getElementById('step-2').scrollIntoView({ behavior: 'smooth' });
             if(window.selectedDate) window.loadSlots();
@@ -94,8 +94,8 @@
             
             const slots = [];
             for (let h = 8; h < 18; h++) {
-                slots.push(`${h < 10 ? '0'+h : h}:00`);
-                slots.push(`${h < 10 ? '0'+h : h}:30`);
+                slots.push(${h < 10 ? '0'+h : h}:00);
+                slots.push(${h < 10 ? '0'+h : h}:30);
             }
             const dateObj = new Date(window.selectedDate + 'T00:00:00');
             if (dateObj.getDay() === 6) { // Sábado atende até 13h
@@ -122,9 +122,9 @@
             slots.forEach(time => {
                 const isTaken = takenSlots.includes(time);
                 const btn = document.createElement('button');
-                btn.className = `p-3 rounded-lg text-sm font-bold border transition-all ${isTaken ? 'bg-red-100 text-red-400 cursor-not-allowed border-red-200' : 'bg-white hover:bg-teal-500 hover:text-white border-gray-200 text-gray-700'}`;
+                btn.className = p-3 rounded-lg text-sm font-bold border transition-all ${isTaken ? 'bg-red-100 text-red-400 cursor-not-allowed border-red-200' : 'bg-white hover:bg-teal-500 hover:text-white border-gray-200 text-gray-700'};
                 if (isTaken) {
-                    btn.innerText = isAdminMode ? `${time} (X)` : "Ocupado";
+                    btn.innerText = isAdminMode ? ${time} (X) : "Ocupado";
                     btn.disabled = !isAdminMode;
                 } else {
                     btn.innerText = time;
@@ -145,7 +145,7 @@
             const isAdminMode = document.getElementById('admin-toggle').checked;
             if (isAdminMode) {
                 // Lógica de bloqueio rápido para admin
-                if(confirm(`Deseja bloquear o horário ${time}?`)) {
+                if(confirm(Deseja bloquear o horário ${time}?)) {
                     window.saveAppointment({ name: 'BLOQUEADO', phone: 'N/A', city: 'N/A' }, true);
                 }
             } else {
@@ -167,14 +167,14 @@
 
             await window.saveAppointment(clientData, false);
             
-            const msg = `Olá, quero agendar no CONSULTÓRIO OLHARYS.%0A%0A*Tipo:* ${window.selectedProf.name}%0A*Data:* ${window.selectedDate.split('-').reverse().join('/')}%0A*Horário:* ${window.selectedTime}%0A%0ANome: ${clientData.name}`;
-            window.open(`https://wa.me/5541996509734?text=${msg}`, '_blank');
+            const msg = Olá, quero agendar no CONSULTÓRIO OLHARYS.%0A%0A*Tipo:* ${window.selectedProf.name}%0A*Data:* ${window.selectedDate.split('-').reverse().join('/')}%0A*Horário:* ${window.selectedTime}%0A%0ANome: ${clientData.name};
+            window.open(https://wa.me/5541996509734?text=${msg}, '_blank');
             location.reload();
         };
 
         window.saveAppointment = async (clientData, isBlock) => {
             if (!db) return;
-            const docId = `${window.selectedProf.id}_${window.selectedDate}_${window.selectedTime}`;
+            const docId = ${window.selectedProf.id}_${window.selectedDate}_${window.selectedTime};
             try {
                 await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'appointments', docId), {
                     profId: window.selectedProf.id,
@@ -262,13 +262,13 @@
                         <div class="w-16 h-16 bg-teal-50 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">👁️</div>
                         <h4 class="text-lg font-bold">OPTOMETRISTA</h4>
                         <p class="text-sm text-gray-500 mb-2">Exame de Vista</p>
-                        <div class="mt-2 text-teal-700 font-bold text-xl">a partir de R$ 120,00</div>
+                        <div class="mt-2 text-teal-700 font-bold text-xl">R$ 120,00</div>
                     </div>
                     <div id="card-oftalmologista" onclick="selectProfessional('oftalmologista')" class="prof-card cursor-pointer border-2 border-teal-100 rounded-2xl p-6 hover:shadow-xl transition-all text-center group bg-white">
                         <div class="w-16 h-16 bg-teal-50 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">👨🏻‍⚕️</div>
                         <h4 class="text-lg font-bold">OFTALMOLOGISTA</h4>
                         <p class="text-sm text-gray-500 mb-2">Consulta Médica</p>
-                        <div class="mt-2 text-teal-700 font-bold text-xl"> a partir de R$ 150,00</div>
+                        <div class="mt-2 text-teal-700 font-bold text-xl">R$ 150,00</div>
                     </div>
                 </div>
             </div>
@@ -307,7 +307,7 @@
                         <input type="text" id="client-city" placeholder="Sua Cidade" class="p-4 border rounded-xl outline-none focus:ring-2 focus:ring-teal-500 shadow-sm">
                     </div>
                     <button type="submit" id="btn-confirm" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 text-lg mt-4">
-                        ✅ Confirmar Agendamento
+                        ✅ Confirmar Agendamento no WhatsApp
                     </button>
                     <p class="text-xs text-center text-gray-400 mt-2">Você será redirecionado para o WhatsApp da clínica para validação final.</p>
                 </form>
@@ -333,4 +333,3 @@
 
 </body>
 </html>
-
